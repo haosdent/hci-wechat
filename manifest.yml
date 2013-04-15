@@ -1,11 +1,11 @@
 ---
 applications:
-- name: hci-wechat
+- name: hci-weixin
   framework: node
   runtime: node08
   memory: 512M
   instances: 1
-  url: hci-wechat.${target-base}
+  url: hci-weixin.${target-base}
   path: .
   services:
     mongodb-hci:
