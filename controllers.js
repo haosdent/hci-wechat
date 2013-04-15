@@ -6,10 +6,13 @@ module.exports = (
 
         test = {
             get: function(req, res, next){
-                var name = req.params.name;
+                var msg = req.weixin;
+                if(msg.MsgType !== 'text') return;
 
-                var users = model.User.findByName(name);
-                res.send(users.format());
+                var name = msg.Content;
+                if(name === undefined) return;
+                var command = model.Command.resolveCommand(name);
+                res.reply(command);
             }
         };
 
