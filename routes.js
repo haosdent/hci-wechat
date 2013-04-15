@@ -21,11 +21,14 @@ module.exports = (
         };
 
         var test = function(){
-            app.get('/general/user/:name', controller.test.get);
+            app.use('/wechat/user', wechatLib('scauhci', controller.test.get));
         };
-
+        /*<!-----------------haosdent----------------!>*/
+        /*http://hci-wechat.cloudfoundry.com/wechat/user*/
+        /*<!-----------------noonnightstorm----------------!>*/
+        /*http://hci-weixin.cloudfoundry.com/wechat/user*/
         var wechat = function(){
-            app.use('/wechat/user', wechatLib('scauhci', controller.user.get));
+            //app.use('/wechat/user', wechatLib('scauhci', controller.user.get));
         };
 
         return {
