@@ -2,6 +2,7 @@ module.exports = (
     function(){
         var model = require('./models')
           , test
+          , cmd
           , user;
 
         test = {
@@ -34,9 +35,13 @@ module.exports = (
             }
         };
 
+        cmd = {
+        }
+
         return {
             user: user
           , test: test
+          , cmd: cmd
         };
     }
 ).call(this);

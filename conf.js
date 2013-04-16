@@ -1,7 +1,9 @@
 module.exports = (
     function(){
         var express = require('express')
-          , app = global.app;
+          , app = global.app
+          , wechat = require('wechat')
+          , route = require('./route');
 
         var general = function(){
 	    app.set('port', process.env.PORT || 3000);
@@ -12,7 +14,10 @@ module.exports = (
 	    app.use(express.session());
 	    app.use(express.static(__dirname + '/../public'));
             app.use(express.logger());
+
+            app.use(express.query());
             app.use(app.router);
+            app.use('/', wechat('scauhci', route));
         };
 
         var develop = function(){

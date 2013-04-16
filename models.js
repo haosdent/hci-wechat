@@ -1,18 +1,18 @@
 var CommandList = {
-  help : "0:帮助\n"+
-         "1:简介\n[HCI工作室简介];\n"+
-         "2:部门\n[部门列表];\n"+
-         "3:活动\n[获取最近活动信息];\n"+
-         "4:用户,格式('4 人名')\n[获取用户信息];\n"+
-         "5:意见('5 意见')\n[发送您意见]",
+  help : "0:使用帮助\n"+
+         "1:工作室简介\n"+
+         "2:工作室部门\n"+
+         "3:最近活动\n"+
+         "4:查询成员联系方式(如:'4 梁广彬')\n"+
+         "5:反馈意见",
   activity: "暂时还没有开放查询活动功能",
   introduction : "人机交互工作室（Human Computer Interaction Student Section）简称HCI@SCAU，是由华南农业大学计算机爱好者组建而成的学生创新实验室。 本团队最初创建于2004年，宗旨是为更多的计算机爱好者提供一个技术交流、学习和创新的平台。团队以项目为驱动，鼓励学生参加各种专业性学科竞赛和创新性研究，帮助学生拓展专业知识，锻炼学生自主研发的能力以及团队合作精神，致力于培养出符合IT行业需求的技术型人才。",
-  suggestion : "谢谢您宝贵的意见，我们会稍后审核的！",
-  errorCommand : "错误的命令，如有疑问，请按'0'查询",
-  department : "1:用户体验部\n"+
-               "2:后台研发部\n"+
-               "3:移动开发部\n"+
-               "4:运维测试部"
+  suggestion : "谢谢您宝贵的意见，我们会积极改进。",
+  errorCommand : "错误的命令，如有疑问，请按'0'查询使用帮助",
+  department : "用户体验部\n"+
+               "后台研发部\n"+
+               "移动开发部\n"+
+               "系统测试部"
 };
 
 module.exports = (
@@ -21,15 +21,6 @@ module.exports = (
           , fs = require('fs')
           , path = './members.csv'
           , User;
-
-        /*userSchema.method('format', function(){
-            var user = this.toJSON();
-            var userStr = '';
-            for(var k in user){
-                userStr = k + user[k] + '\n';
-            };
-            return userStr;
-        });*/
 
         User = {
             init: function(){
@@ -87,9 +78,9 @@ module.exports = (
         };
 
         var Command = {
-          resolveCommand : function(command){
+            resolve: function(command){
             command = command.replace(/^\s*/g,"");
-            command = command.replace(/\s*$/g,""); 
+            command = command.replace(/\s*$/g,"");
             command = command.toLowerCase();
             if(command == "0")
               return CommandList.help;
