@@ -1,11 +1,13 @@
 module.exports = (
     function(){
-        var model = require('./models')
+        var models = require('./models')
+          , http = require('http')
           , helper
           , introducer
           , noticer
           , user
-          , feedbacker;
+          , feedbacker
+          , dispenser;
 
         helper = {
             error: function(req, res, next){
@@ -39,7 +41,7 @@ module.exports = (
 
         user = {
             find: function(req, res, next){
-                var params = req.weixin.content.split(' ');
+                var params = req.weixin.Content.split(' ');
                 if(params.length === 1) {
                     var err = new Error();
                     err.name = 'CommandFormatError';
@@ -48,7 +50,7 @@ module.exports = (
                 };
 
                 var name = params[1];
-                var users = model.User.findByName(name);
+                var users = models.User.findByName(name);
                 res.reply(users.format());
             }
         };
@@ -60,12 +62,33 @@ module.exports = (
             }
         };
 
+        dispenser = {
+            status: function(req, res, next){
+                http.get('http://dispenser.cloudfoundry.com/status', function(clientRes){
+                    var body = '';
+                    clientRes.on('data', function(chunk){
+                        body += chunk;
+                    }).on('end', function(){
+                        var status = body;
+                        var reply;
+                        if(status === '1'){
+                            reply = '水已经开了, 快来取水吧.';
+                        }else{
+                            reply = '水还没开, 哈哈';
+                        };
+                        res.reply(reply);
+                    });
+                });
+            }
+        }
+
         return {
             helper: helper
           , introducer: introducer
           , noticer: noticer
           , user: user
           , feedbacker: feedbacker
+          , dispenser: dispenser
         };
     }
 ).call(this);

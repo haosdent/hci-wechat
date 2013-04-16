@@ -1,15 +1,16 @@
 module.exports = (
     function(){
-        var controller = require('./controllers');
+        var controllers = require('./controllers');
 
         var route = {
-            '-1': controller.helper.error
-          , '0': controller.helper.tip
-          , '1': controller.introducer.intro
-          , '2': controller.introducer.department
-          , '3': controller.noticer.activity
-          , '4': controller.user.find
-          , '5': controller.feedbacker.opinion
+            '-1': controllers.helper.error
+          , '0': controllers.helper.tip
+          , '1': controllers.introducer.intro
+          , '2': controllers.introducer.department
+          , '3': controllers.noticer.activity
+          , '4': controllers.user.find
+          , '5': controllers.feedbacker.opinion
+          , '6': controllers.dispenser.status
         };
 
         return function(req, res, next){
@@ -19,7 +20,8 @@ module.exports = (
             if(content === undefined) return;
 
             var index = content.split(' ')[0];
-            route[index] === undefined && index = '-1';
+            index.match('饮水机') !== null && (index = 6);
+            route[index] === undefined && (index = '-1');
 
             try{
                 route[index](req, res, next);

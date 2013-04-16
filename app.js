@@ -4,7 +4,7 @@ var express = require('express')
   , conf = require('./conf')
   , server = http.createServer(app)
   //, mongo = global.mongo = require('mongoose').connect('mongodb://localhost/hci_wechat')
-  , model = require('./models');
+  , models = require('./models');
 
 app.configure(conf.general);
 app.configure('development', conf.develop);

@@ -59,6 +59,8 @@ module.exports = (
             }
         };
 
+        User.init();
+
         return {
             User: User
         };
